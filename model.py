@@ -118,9 +118,12 @@ def main(dropout=0.2, nb_epoch=3, batch_size=32, correction=0.2):
 
     cb = EarlyStopping(monitor='val_loss', min_delta=.005, patience=1, verbose=1, mode='auto')
 
+    # history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples) * 2,
+    #                     validation_data=valid_generator, nb_val_samples=len(valid_samples) * 2,
+    #                     nb_epoch=nb_epoch, callbacks=[cb])
     history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples) * 2,
-                        validation_data=valid_generator, nb_val_samples=len(valid_samples) * 2,
-                        nb_epoch=nb_epoch, callbacks=[cb])
+                                         validation_data=valid_generator, nb_val_samples=len(valid_samples) * 2,
+                                         nb_epoch=nb_epoch)
     model.save('model.h5')
 
     with open('history_object.p', 'wb') as history_file:
