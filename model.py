@@ -13,7 +13,7 @@ import sys
 import pickle
 import glob
 
-def build_model(dropout=0.3):
+def build_model(dropout=0.2):
     model = Sequential()
     model.add(Cropping2D(cropping=((50, 20), (0, 0)), input_shape=(160, 320, 3)))
 
@@ -79,11 +79,12 @@ def generator(samples, batch_size=32):
             angles = []
             for batch_sample in batch_samples:
                 image = cv2.imread(batch_sample[0])
-                b, g, r = cv2.split(image)  # get b,g,r
-                image = cv2.merge([r, g, b])  # switch it to rgb
-                angle = batch_sample[1]
 
                 if image is not None and image.shape == (160, 320, 3):
+                    b, g, r = cv2.split(image)  # get b,g,r
+                    image = cv2.merge([r, g, b])  # switch it to rgb
+                    angle = batch_sample[1]
+
                     images.append(image)
                     angles.append(angle)
                     images.append(cv2.flip(image, 1))
@@ -96,10 +97,10 @@ def generator(samples, batch_size=32):
                 yield shuffle(X_train, y_train)
 
 
-def main(dropout=0.3, nb_epoch=3, batch_size=32, correction=0.2):
+def main(dropout=0.2, nb_epoch=3, batch_size=32, correction=0.2):
     pathes = glob.glob('./training_data/track*set*/')
     
-    log_csv = 'driving_log.csv'
+    log_csv = 'driving_log_full.csv'
 
     samples = []
 
@@ -130,7 +131,7 @@ def main(dropout=0.3, nb_epoch=3, batch_size=32, correction=0.2):
     K.clear_session()
 
 if __name__ == "__main__":
-    dropout = 0.3
+    dropout = 0.2
     nb_epoch = 10
     batch_size = 32
     correction = 0.2

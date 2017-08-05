@@ -1,3 +1,4 @@
 .idea
 training_data/track*_set*/IMG/
 training_data/track*_set*/movie/
+*.zip
