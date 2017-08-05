@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 
 import sys
 import pickle
+import glob
 
 def build_model(dropout=0.3):
     model = Sequential()
@@ -96,7 +97,8 @@ def generator(samples, batch_size=32):
 
 
 def main(dropout=0.3, nb_epoch=3, batch_size=32, correction=0.2):
-    pathes = ['./myData/', './data/', './secondTrack/', './data_07-31/']
+    pathes = glob.glob('training_data/track*set*')
+
     log_csv = 'driving_log.csv'
 
     samples = []
@@ -128,7 +130,7 @@ def main(dropout=0.3, nb_epoch=3, batch_size=32, correction=0.2):
     K.clear_session()
 
 if __name__ == "__main__":
-    dropout = 0.2
+    dropout = 0.3
     nb_epoch = 10
     batch_size = 32
     correction = 0.2
