@@ -15,7 +15,7 @@ import glob
 
 def build_model(dropout=0.2):
     model = Sequential()
-    model.add(Cropping2D(cropping=((50, 20), (0, 0)), input_shape=(160, 320, 3)))
+    model.add(Cropping2D(cropping=((70, 25), (0, 0)), input_shape=(160, 320, 3)))
 
     # normalized layer
     model.add(Lambda(lambda x: x / 255.0 - 0.5))
