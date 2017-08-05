@@ -97,8 +97,8 @@ def generator(samples, batch_size=32):
 
 
 def main(dropout=0.3, nb_epoch=3, batch_size=32, correction=0.2):
-    pathes = glob.glob('training_data/track*set*')
-
+    pathes = glob.glob('./training_data/track*set*/')
+    
     log_csv = 'driving_log.csv'
 
     samples = []
