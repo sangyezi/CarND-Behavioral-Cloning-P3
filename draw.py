@@ -1,13 +1,11 @@
 import matplotlib.pyplot as plt
+import pickle
 
-# from keras.models import load_model
-# from keras.utils.visualize_util import model_to_dot
+from keras.models import load_model
+from keras.utils.visualize_util import plot
 
-# model = load_model('model.h5')
-
-# plot_model(model, to_file='model.png')
-# from IPython.display import SVG
-# SVG(model_to_dot(model).create(prog='dot', format='svg'))
+model = load_model('model.h5')
+plot(model, to_file='model.png')
 
 history = pickle.load(open('history_object.p', 'rb'))
 
