@@ -1,8 +1,8 @@
-#**Behavioral Cloning** 
+# **Behavioral Cloning** 
 
 ---
 
-**Behavioral Cloning Project**
+** Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
 
@@ -28,9 +28,9 @@ The goals / steps of this project are the following:
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 
@@ -44,43 +44,43 @@ My project includes the following files:
 * [track 1 screen recording](https://youtu.be/1DHCzYFkIqo): screen recording of autonomous driving on track1 (top view, recorded by quicktime, uploaded to youtube)
 * [track 2 screen recording](https://youtu.be/DIxP_BBfJ28): screen recording of autonomous driving on track2 (top view, recorded by quicktime, uploaded to youtube)
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The `model.py` file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 My model consists of a convolution neural network with 5x5 or 3x3 filter sizes and depths between 24 and 64. RELU activation is used at each convolutiaon layer to introduce nonlinearity. Fully connected layers of depth 1164 to 1 are added after the convolution layers.
 
 The image was first cropped (top 70 rows of pixels and bottom 25 rows of pixels removed), then the pixel data is normalized in the model using a Keras lambda layer. 
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 The model contains dropout layers in order to reduce overfitting.
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (data randomly shuffled and split as 80% into training set, and 20% into validation set). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually.
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. 
 
 For details about how I created the training data, see the next section. 
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 The overall strategy for deriving a model architecture was to fine tune the existing model [published by Nvidia](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) to fit for this problem. Nvidia's model is used for end-to-end learning of real self-driving cars, which face more complicated road and weather conditions, while this model is used for a similar and mainly focus to keep the car on a clear track. 
 
@@ -98,7 +98,7 @@ The final step was to run the simulator to see how well the car was driving arou
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture consisted of a cropping layer, a normalization layer, five convolution neural layers, a flatten layer and followed by four fully connected layers interleaved by dropout layers. 
 
@@ -111,7 +111,7 @@ Actually this model is very similar to the Nvidia model, plotted below
 ![alt text][image2]
 
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
@@ -148,7 +148,7 @@ I used this training data for training the model. The validation set helped dete
 
 I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
-###4. testing result explanation
+### 4. testing result explanation
 
 I included vides generated by `video.py` for the autonomous driving test on track 1 and 2 in the project (`track1.mp4` and `track2.mp4`)
 
