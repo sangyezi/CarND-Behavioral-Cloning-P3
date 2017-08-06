@@ -24,4 +24,4 @@ if len(sys.argv) == 3:
             output_file.write('\n')
     output_file.close()
 else:
-    print('usage: python clean_csvfile.py ./training_data/track2_set0/driving_log.csv ./training_data/track2_set0/driving_log_new.csv')
+    print('usage: python clean_csvfile.py ./training_data/track2_set1/driving_log_full.csv ./training_data/track2_set1/driving_log.csv')
