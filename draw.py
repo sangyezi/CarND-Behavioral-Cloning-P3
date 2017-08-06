@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import pickle
 
-# from keras.models import load_model
-# from keras.utils.visualize_util import plot
-#
-# model = load_model('model.h5')
-# plot(model, to_file='model.png')
+from keras.models import load_model
+from keras.utils.visualize_util import plot
+
+model = load_model('model.h5')
+plot(model, to_file='plot/model.png')
 
 history = pickle.load(open('history_object.p', 'rb'))
 
@@ -20,4 +20,4 @@ plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 
-plt.savefig('loss.png')
+plt.savefig('plot/loss.png')

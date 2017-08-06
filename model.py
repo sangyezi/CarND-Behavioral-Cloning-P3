@@ -13,6 +13,8 @@ import sys
 import pickle
 import glob
 
+
+# return the model (convolutaional network)
 def build_model(dropout=0.2):
     model = Sequential()
     model.add(Cropping2D(cropping=((70, 25), (0, 0)), input_shape=(160, 320, 3)))
@@ -48,6 +50,8 @@ def build_model(dropout=0.2):
     return model
 
 
+# for each row in csv file, get the image path and steering angle as a sample
+# return all samples as a list
 def get_samples(path, file_name, correction=0.2):
     corrections = [0, correction, -correction]
     samples = []
@@ -66,7 +70,7 @@ def get_samples(path, file_name, correction=0.2):
                     samples.append((name, angle))
     return samples
 
-
+# generate batch_size training or validation data each time the function is called
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     shuffle(samples)
@@ -80,6 +84,7 @@ def generator(samples, batch_size=32):
             for batch_sample in batch_samples:
                 image = cv2.imread(batch_sample[0])
 
+                # sometimes cv2.imread fails silently, to prevent this, check image is correctly read
                 if image is not None and image.shape == (160, 320, 3):
                     b, g, r = cv2.split(image)  # get b,g,r
                     image = cv2.merge([r, g, b])  # switch it to rgb
@@ -98,6 +103,7 @@ def generator(samples, batch_size=32):
 
 
 def main(dropout=0.2, nb_epoch=3, batch_size=32, correction=0.2):
+    # pathes of data sets
     pathes = glob.glob('./training_data/track*set*/')
     
     log_csv = 'driving_log_full.csv'
@@ -116,6 +122,7 @@ def main(dropout=0.2, nb_epoch=3, batch_size=32, correction=0.2):
 
     model = build_model(dropout=dropout)
 
+    # early stopping was not used in the final model
     cb = EarlyStopping(monitor='val_loss', min_delta=.005, patience=1, verbose=1, mode='auto')
 
     # history_object = model.fit_generator(train_generator, samples_per_epoch=len(train_samples) * 2,
@@ -129,7 +136,7 @@ def main(dropout=0.2, nb_epoch=3, batch_size=32, correction=0.2):
     with open('history_object.p', 'wb') as history_file:
         pickle.dump(history_object.history, history_file)
 
-    # fix bug: https://github.com/tensorflow/tensorflow/issues/3388
+    # the following line was added to fix tensorflow bug: https://github.com/tensorflow/tensorflow/issues/3388
     from keras import backend as K
     K.clear_session()
 
@@ -139,6 +146,7 @@ if __name__ == "__main__":
     batch_size = 32
     correction = 0.2
 
+    # read parameters from command line arguments
     if len(sys.argv) > 1:
         for argv in sys.argv[1:]:
             name, val = argv.split('=')
